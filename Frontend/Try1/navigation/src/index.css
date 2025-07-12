@@ -1,19 +1,100 @@
-/* app file styling */
-html, body, #root {
-  height: 100%;
+body{
+  font-family: Arial,  sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
+  height: 100vh;
+  background-color: #0C67A0;
+  
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100%;
+}
+.form-container{
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 300px;
+
+}
+.form-toggle{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  
+}
+.form-toggle button{
+  background-color: #f3f3f3;
+  width: 50%;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px 10px 0 0;
+
+}
+.form-toggle .active{
+  background-color: #033452;
+  color: white;
 }
 
-.app-wrapper {
+.form{
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
-.app-wrapper > main {
-  flex: 1;
+.form h2{
+  margin-bottom: 10px;
 }
-
-footer {
-  padding: 0px 0;
+.form input{
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.form button{
+  padding: 5px;
+  background-color: #033452;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.form a{
+  color: #007bff;
+  text-decoration: none;
+  margin-bottom: 0;
+  text-align: right;
+}
+.form p{
+  text-align: center;
+}
+.logo-name{
+  padding: 10;
+  font-size: 26px;
+  margin-top: 0;
+}
+.forgot-link{
+  padding: 5px;
+}
+.show-icon{
+  margin-left: 0px;
+}
+.password-box{
+  width: 256px;
+}
+.confirm-password{
+  width: 256px;
+}
+.admin-button{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
 }
