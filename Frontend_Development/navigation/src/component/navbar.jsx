@@ -57,7 +57,6 @@ const Navbar = () => {
                     </li>
                 </ul>
             </div>
-            <AdminButton />
         </nav>
     );
 };
