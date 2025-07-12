@@ -1,0 +1,138 @@
+// import React, { useEffect, useState } from "react";
+// import "./productCard.css";
+
+// const ProductCard = () => {
+//   const [products, setProducts] = useState([]);
+//   const [cart, setCart] = useState({});
+//   const [quantities, setQuantities] = useState({});
+
+//   useEffect(() => {
+//     fetch("http://localhost:5000/api/products")
+//       .then((res) => res.json())
+//       .then((data) => setProducts(data));
+//   }, []);
+
+//   const handleQuantityChange = (id, delta) => {
+//     setQuantities((prev) => ({
+//       ...prev,
+//       [id]: Math.max((prev[id] || 1) + delta, 1),
+//     }));
+//   };
+
+//   const handleAddToCart = (product) => {
+//     setCart((prev) => ({
+//       ...prev,
+//       [product.id]: {
+//         ...product,
+//         quantity: quantities[product.id] || 1,
+//       },
+//     }));
+//     alert(`${product.name} added to cart!`);
+//   };
+
+//   return (
+//     <div className="product-container">
+//       {products.map((product) => (
+//         <div key={product.id} className="product-card">
+//           <img src={product.image} alt={product.name} className="product-img" />
+//           <h3>{product.name}</h3>
+//           <p>{product.description}</p>
+//           <p><strong>₹{product.price}</strong></p>
+
+//           <div className="quantity-control">
+//             <button onClick={() => handleQuantityChange(product.id, -1)}>-</button>
+//             <span>{quantities[product.id] || 1}</span>
+//             <button onClick={() => handleQuantityChange(product.id, 1)}>+</button>
+//           </div>
+
+//           <button className="buy-btn" onClick={() => handleAddToCart(product)}>
+//             Buy
+//           </button>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default ProductCard;
+import React, { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const ProductCard = () => {
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState({});
+  const [quantities, setQuantities] = useState({});
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/products")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+
+  const handleQuantityChange = (id, delta) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: Math.max((prev[id] || 1) + delta, 1),
+    }));
+  };
+
+  const handleAddToCart = (product) => {
+    setCart((prev) => ({
+      ...prev,
+      [product.id]: {
+        ...product,
+        quantity: quantities[product.id] || 1,
+      },
+    }));
+    alert(`${product.name} added to cart!`);
+  };
+
+  return (
+    <div className="container mt-4">
+      <div className="row">
+        {products.map((product) => (
+          <div key={product.id} className="col-md-4 col-sm-6 mb-4">
+            <div className="card h-100 shadow-sm">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="card-img-top"
+                style={{ height: "200px", objectFit: "cover" }}
+              />
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">{product.name}</h5>
+                <p className="card-text">{product.description}</p>
+                <p className="fw-bold">₹{product.price}</p>
+
+                <div className="d-flex align-items-center mb-2">
+                  <button
+                    className="btn btn-outline-secondary btn-sm"
+                    onClick={() => handleQuantityChange(product.id, -1)}
+                  >
+                    -
+                  </button>
+                  <span className="mx-2">{quantities[product.id] || 1}</span>
+                  <button
+                    className="btn btn-outline-secondary btn-sm"
+                    onClick={() => handleQuantityChange(product.id, 1)}
+                  >
+                    +
+                  </button>
+                </div>
+
+                <button
+                  className="btn btn-primary mt-auto"
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Buy
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ProductCard;
