@@ -10,7 +10,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import LoginModal from "./component/LoginModel";
 import ForgotPasswordModal from "./component/ForgotPasswordModel";
-import AdminDashboard from "./component/AdminDashboard";
+import AdminDashboard from "./Routes/AdminDashboard";
 
 
 
