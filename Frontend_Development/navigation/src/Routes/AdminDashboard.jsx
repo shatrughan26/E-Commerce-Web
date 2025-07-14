@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Import your components
+import AdminProductForm from "../component/AdminProductForm";
 import AdminSidebar from "../component/AdminSidebar";
 import UserList from "../component/UserList";
 import CreateUser from "../component/CreateUser";
 import DeleteUser from "../component/DeleteUser";
 import ProductList from "../component/ProductList";
-import ForgotResetAdminPass from "../component/ForgotResetAdminPass"
+import ForgotResetAdminPass from "../component/ForgotResetAdminPass";
+import AdminBannerUpload from "../component/AdminBannerUpload";
+import AdminOrderStatusPage from "../component/AdminOrderStatusPage";
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState("userlist");
@@ -25,6 +28,12 @@ const AdminDashboard = () => {
         return <ProductList />;
       case "forgotreset":
         return <ForgotResetAdminPass />;
+      case "productupload":
+        return <AdminProductForm />;
+      case "bannerupload":
+        return <AdminBannerUpload />;
+      case "orderstatus":
+        return <AdminOrderStatusPage/>;
       default:
         return <UserList />;
     }

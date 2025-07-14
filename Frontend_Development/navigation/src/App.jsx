@@ -11,6 +11,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import LoginModal from "./component/LoginModel";
 import ForgotPasswordModal from "./component/ForgotPasswordModel";
 import AdminDashboard from "./Routes/AdminDashboard";
+import UserOrderPlace from "./component/UserOrderPlace"
 
 
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
+          <Route path="/adminorderstatus" element={<UserOrderPlace />} />
           
           <Route
             path="/admin"

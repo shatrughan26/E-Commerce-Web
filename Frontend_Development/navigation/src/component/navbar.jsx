@@ -20,7 +20,7 @@ const Navbar = () => {
                 {isOpen ? <FaTimes /> : <FaBars />}
             </button>
 
-                <form className="d-flex-grow-1 ms-lg-auto py-1 w-50 md-order-1" role="search">
+                <form className="d-flex-grow-1 ms-lg-auto py-1 w-100 md-order-1" role="search">
                     <input
                         className="form-control"
                         type="search"
@@ -28,8 +28,7 @@ const Navbar = () => {
                         aria-label="Search"
                         style={{
                             width: "100%",          // fill available space
-                            maxWidth: "650px",      // increase this for desktop
-                            minWidth: "100%"       // ensures it doesn’t collapse on mobile
+                     // increase this for desktop
                         }}
                     />
                 </form>
