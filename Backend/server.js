@@ -7,8 +7,6 @@ import productRoutes from './routes/productRoutes.js';
 import homePageRoutes from './routes/homePageRoutes.js';
 import cors from 'cors';
 
-
-
 dotenv.config();
 connectDB();
 

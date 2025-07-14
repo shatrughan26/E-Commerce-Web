@@ -13,8 +13,9 @@ const Banner = () => {
   if (!banner) return <div>Loading banner...</div>;
 
   return (
-    <div className="banner">
+    <div className="banner">  
       {/* <img src={banner.image} alt="Banner" className="banner-img" /> */}
+      
       <img src={`http://localhost:5000${banner.image}`} alt="Banner" className="banner-img" />
       <h2 className="banner-title">{banner.title}</h2>
     </div>

@@ -6,4 +6,5 @@ const bannerHomePageSchema = new mongoose.Schema({
   title: { type: String, required: true },
 });
 
+
 export default mongoose.model('Banner', bannerHomePageSchema);

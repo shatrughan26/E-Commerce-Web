@@ -4,6 +4,7 @@ import upload from '../middleware/upload.js';
 
 const router = express.Router();
 
+
 // Admin uploads banner (POST)
 router.post('/', upload.single('image'), async (req, res) => {
   try {
