@@ -29,7 +29,7 @@ const ProductCard = () => {
     }));
     alert(`${product.name} added to cart!`);
   };
-
+// comment added
   return (
     <div className="container mt-4">
       <div className="row">
