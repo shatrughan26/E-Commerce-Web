@@ -34,7 +34,13 @@ const Footer = () => {
               <li><a href="#" className="text-white text-decoration-none">FAQ</a></li>
               <li><a href="#" className="text-white text-decoration-none">Shipping</a></li>
               <li><a href="#" className="text-white text-decoration-none">Returns</a></li>
-              <li><a href="#" className="text-white text-decoration-none">Order Status</a></li>
+              <li>
+                <div>
+                  <Link to="/adminorderstatus" className="text-white text-decoration-none">
+                    Orders
+                  </Link>
+                </div>
+              </li>
               <li><a href="#" className="text-white text-decoration-none">Payment Options</a></li>
             </ul>
           </div>
