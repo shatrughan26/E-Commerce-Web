@@ -3,41 +3,45 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ProductCard = () => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState({});
+  // const [cart, setCart] = useState({});
   const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products")
+    fetch("http://localhost:5000/api/products/all")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
 
-  const handleQuantityChange = (id, delta) => {
+  const handleQuantityChange = (productId, delta) => {
     setQuantities((prev) => ({
       ...prev,
-      [id]: Math.max((prev[id] || 1) + delta, 1),
+      [productId]: Math.max((prev[productId] || 1) + delta, 1),
     }));
   };
 
-  const handleAddToCart = (product) => {
-    setCart((prev) => ({
-      ...prev,
-      [product.id]: {
-        ...product,
-        quantity: quantities[product.id] || 1,
-      },
-    }));
-    alert(`${product.name} added to cart!`);
-  };
-// comment added
+  // const handleAddToCart = (product) => {
+  //   setCart((prev) => ({
+  //     ...prev,
+  //     [product.productId]: {
+  //       ...product,
+  //       quantity: quantities[product.productId] || 1,
+  //     },
+  //   }));
+  //   alert(`${product.name} added to cart!`);
+  // };
+
+  // And modify the add to cart:
+const handleAddToCart = (product) => {
+  alert(`${product.name} added to cart!`);
+};
   return (
     <div className="container mt-4">
       <div className="row">
         {products.map((product) => (
-          <div key={product.id} className="col-md-4 col-sm-6 mb-4">
+          <div key={product.productId} className="col-md-4 col-sm-6 mb-4">
             <div className="card h-100 shadow-sm">
               <img
-                src={product.image}
+                src={product.imageUrl}
                 alt={product.name}
                 className="card-img-top"
                 style={{ height: "200px", objectFit: "cover" }}
@@ -50,14 +54,14 @@ const ProductCard = () => {
                 <div className="d-flex align-items-center mb-2">
                   <button
                     className="btn btn-outline-secondary btn-sm"
-                    onClick={() => handleQuantityChange(product.id, -1)}
+                    onClick={() => handleQuantityChange(product.productId, -1)}
                   >
                     -
                   </button>
-                  <span className="mx-2">{quantities[product.id] || 1}</span>
+                  <span className="mx-2">{quantities[product.productId] || 1}</span>
                   <button
                     className="btn btn-outline-secondary btn-sm"
-                    onClick={() => handleQuantityChange(product.id, 1)}
+                    onClick={() => handleQuantityChange(product.productId, 1)}
                   >
                     +
                   </button>

@@ -24,7 +24,10 @@ const productSchema = new mongoose.Schema({
   'Pencil',
   'Printer',
   'Register',
-  'Tools'
+  'Tools',
+  'Air Fresheners',
+  'Mops & Wipers',
+  'Pest Control'
 ]
   },
   stock: { type: Number, default: 0 },

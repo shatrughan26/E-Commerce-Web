@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 import ForgotPasswordModal from "./ForgotPasswordModel";
 
 function LoginModal() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isLogin, setIslogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
