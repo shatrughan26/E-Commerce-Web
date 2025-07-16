@@ -20,7 +20,7 @@ function App() {
   const userRole = localStorage.getItem("userRole") || "guest";
 
     return(
-      <div className="app-wrapper">
+      <div className="app-wrapper relative overflow-x-hidden">
       <Navbar />
       <main>
         <Routes>
