@@ -4,11 +4,10 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import AdminButton from "./AdminButton";
 import AdminLogin from "../Routes/AdminLogin";
 
-const Navbar = () => {
+    const Navbar = ({ setShowLoginModal }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleNavbar = () => setIsOpen(!isOpen);
-
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
             <Link className="navbar-brand d-flex flex-column" to="/">
@@ -47,12 +46,15 @@ const Navbar = () => {
                     <li className="nav-item">
                     <button
                         className="btn nav-link px-4 bg-transparent border-0"
-                        data-bs-toggle="modal"
-                        data-bs-target="#loginModal"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        Login
+                        onClick={() => {
+                            setIsOpen(false);
+                            setShowLoginModal(true);
+                        }}
+                        >
+                         Login
                     </button>
+
+
                     </li>
                 </ul>
             </div>

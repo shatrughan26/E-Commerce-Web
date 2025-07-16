@@ -18,31 +18,52 @@ export const signup = async (req, res) => {
   }
 };
 
-// admin login
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const admin = await Admin.findOne({ email });
-    if (!admin) return res.status(404).json({ error: 'Admin not found' });
+    if (!admin) return res.status(404).json({ success: false, message: 'Admin not found' });
 
     const match = await bcrypt.compare(password, admin.password);
-    if (!match) return res.status(400).json({ error: 'Invalid credentials' });
+    if (!match) return res.status(400).json({ success: false, message: 'Invalid credentials' });
 
     const token = jwt.sign({ id: admin._id, isAdmin: true }, process.env.JWT_SECRET);
-    res.json({ token });
+
+    res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      token,
+      admin: {
+        id: admin._id,
+        name: admin.name,
+        email: admin.email
+      }
+    });
   } catch (err) {
-    res.status(500).json({ error: 'Login failed' });
+    res.status(500).json({ success: false, message: 'Login failed', error: err.message });
   }
 };
 
 // admin can create user
 export const createUser = async (req, res) => {
   try {
+    console.log("Create User request received");
+    console.log("Request body:", req.body);
+
     const { name, email, password, mobile } = req.body;
+
+    if (!name || !email || !password) {
+      console.log("Missing fields");
+      return res.status(400).json({ error: "Name, email, and password are required." });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = new User({ name, email, password: hashedPassword, mobile });
+
     await user.save();
+    console.log("User created successfully");
     res.status(201).json({ message: 'User created by admin' });
+
   } catch (err) {
     res.status(500).json({ error: 'User creation failed' });
   }
@@ -61,10 +82,12 @@ export const getUsers = async (req, res) => {
 // admin to delete user
 export const deleteUser = async (req, res) => {
   try {
+    console.log("Delete request received with ID:", req.params.id);
     const { id } = req.params;
     await User.findByIdAndDelete(id);
     res.json({ message: 'User deleted' });
   } catch (err) {
+    console.error("Error deleting user:", err);
     res.status(500).json({ error: 'User deletion failed' });
   }
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from 'axios';
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -9,19 +10,51 @@ function AdminLogin() {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    const adminEmail = "admin@example.com";
-    const adminPassword = "admin123";
+  // const handleLogin = () => {
+  //   const adminEmail = "admin@example.com";
+  //   const adminPassword = "admin123";
 
-    if (email === adminEmail && password === adminPassword) {
+  //   if (email === adminEmail && password === adminPassword) {
+  //     localStorage.setItem("userRole", "admin");
+  //     setLoginSuccess(true);
+  //     setError("");
+  //   } else {
+  //     setLoginSuccess(false);
+  //     setError("❌ Wrong Credentials");
+  //   }
+  // };
+
+const handleLogin = async () => {
+  if (!email || !password) {
+    setError("Please enter email and password");
+    setLoginSuccess(false);
+    return;
+  }
+
+  try {
+    const response = await axios.post('http://localhost:5000/api/admin/login', {
+      email,
+      password
+    });
+
+    if (response.data.success) {
       localStorage.setItem("userRole", "admin");
+      localStorage.setItem("adminToken", response.data.token);
+      localStorage.setItem("adminName", response.data.admin.name);
       setLoginSuccess(true);
       setError("");
     } else {
       setLoginSuccess(false);
-      setError("❌ Wrong Credentials");
+      setError(response.data.message || "Invalid credentials");
     }
-  };
+
+  } catch (err) {
+    setLoginSuccess(false);
+    setError(err.response?.data?.message || "❌ Login failed. Please try again.");
+  }
+};
+
+
 
   const goToDashboard = () => {
     navigate("/admin");
