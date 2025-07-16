@@ -17,7 +17,12 @@ const CreateUser = () => {
     setMessage({});
 
     try {
-      const res = await axios.post("http://localhost:5500/api/users/create", formData);
+
+      const token = localStorage.getItem("adminToken");
+
+      const res = await axios.post("http://localhost:5000/api/admin/create-user", formData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setMessage({ type: "success", text: res.data.message || "User created successfully!" });
       setFormData({ name: "", email: "", password: "" });
     } catch (error) {
