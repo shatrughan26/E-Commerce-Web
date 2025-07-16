@@ -21,8 +21,10 @@ function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
     return(
+
       <div className="app-wrapper">
       <Navbar setShowLoginModal={setShowLoginModal} />
+
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
