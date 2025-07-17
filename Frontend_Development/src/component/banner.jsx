@@ -4,13 +4,13 @@ import defaultBanner from "../assets/offerbanner.png";
 const Banner = () => {
   const [banners, setBanners] = useState([]);
 
+
 useEffect(() => {
   fetch('http://localhost:5000/api/banner')
     .then((res) => res.json())
     .then((data) => setBanners(data))
     .catch((err) => console.error("Failed to load banners", err));
 }, []);
-
 
   if (banners.length === 0) {
     return ( 

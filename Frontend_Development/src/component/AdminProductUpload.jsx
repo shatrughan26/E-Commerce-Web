@@ -1,8 +1,9 @@
-// AdminProductUpdate.jsx
+// AdminProductForm.jsx
 import React, { useState } from "react";
 import axios from "axios";
 
-const AdminProductUpdate = ({ isUpdate = false, existingData = {} }) => {
+const AdminProductForm = ({ isUpdate = false, existingData = {} }) => {
+
   const [title, setTitle] = useState(existingData.title || "");
   const [description, setDescription] = useState(
     existingData.description || ""
@@ -23,11 +24,13 @@ const AdminProductUpdate = ({ isUpdate = false, existingData = {} }) => {
     e.preventDefault();
 
     const formData = new FormData();
+
     formData.append("name", title);
     formData.append("description", description);
     formData.append("category", category);
     formData.append("price", price);
     formData.append("stock", stock);
+
     if (image) {
       formData.append("imageUrl", image);  // Backend expects imageUrl field
     }
@@ -41,6 +44,7 @@ const AdminProductUpdate = ({ isUpdate = false, existingData = {} }) => {
     console.error(err);
     alert("Failed to add product");
   }
+
   };
 
   return (
@@ -105,4 +109,6 @@ const AdminProductUpdate = ({ isUpdate = false, existingData = {} }) => {
   );
 };
 
+
 export default AdminProductUpdate;
+
