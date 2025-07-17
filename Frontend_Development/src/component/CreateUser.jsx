@@ -23,15 +23,14 @@ const CreateUser = () => {
     setMessage({});
 
     try {
-      const res = await axios.post(
-        "http://localhost:5500/api/users/create",
-        formData
-      );
-      setMessage({
-        type: "success",
-        text: res.data.message || "User created successfully!",
+
+      const token = localStorage.getItem("adminToken");
+
+      const res = await axios.post("http://localhost:5000/api/admin/create-user", formData, {
+        headers: { Authorization: `Bearer ${token}` }
       });
-      setFormData({ name: "", email: "", password: "", number: "", address: ""});
+      setMessage({ type: "success", text: res.data.message || "User created successfully!" });
+      setFormData({ name: "", email: "", password: "" });
     } catch (error) {
       setMessage({
         type: "danger",

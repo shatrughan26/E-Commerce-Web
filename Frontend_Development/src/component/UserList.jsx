@@ -7,17 +7,25 @@ const UserList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch user data from backend
   useEffect(() => {
-    axios.get("http://localhost:5500/api/users")
-      .then((res) => {
-        setUsers(res.data);
+    const fetchUsers = async () => {
+      const token = localStorage.getItem("adminToken");
+
+      try {
+        const response = await axios.get("http://localhost:5000/api/admin/all-users", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        setUsers(response.data);
         setLoading(false);
-      })
-      .catch((err) => {
-        setError("Failed to fetch users");
+      } catch (err) {
+        console.error(err);
+        setError(err.response?.data?.message || "Failed to fetch users");
         setLoading(false);
-      });
+      }
+    };
+
+    fetchUsers();
   }, []);
 
   return (
@@ -39,16 +47,18 @@ const UserList = () => {
               <th>#</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Address</th>
+              <th>Mobile</th>
+              <th>Created At</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, idx) => (
-              <tr key={user.id}>
+              <tr key={user._id}>
                 <td>{idx + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.address}</td>
+                <td>{user.mobile}</td>
+                <td>{new Date(user.createdAt).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>

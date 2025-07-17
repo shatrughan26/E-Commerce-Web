@@ -6,10 +6,20 @@ const DeleteUser = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState({ type: "", text: "" });
+  
 
+  useEffect(() => {
+    fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
+  const token = localStorage.getItem("adminToken");
   const fetchUsers = () => {
     setLoading(true);
-    axios.get("http://localhost:5500/api/users")
+    
+    axios.get("http://localhost:5000/api/admin/all-users", {
+        headers: { Authorization: `Bearer ${token}` }
+    })
       .then((res) => {
         setUsers(res.data);
         setLoading(false);
@@ -20,15 +30,16 @@ const DeleteUser = () => {
       });
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
+
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
     try {
-      await axios.delete(`http://localhost:5500/api/users/${id}`);
+      await axios.delete(`http://localhost:5000/api/admin/delete-user/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setMsg({ type: "success", text: "User deleted successfully" });
       fetchUsers(); // Refresh user list
     } catch {
@@ -57,13 +68,13 @@ const DeleteUser = () => {
           </thead>
           <tbody>
             {users.map((u, i) => (
-              <tr key={u.id}>
+              <tr key={u._id}>
                 <td>{i + 1}</td>
                 <td>{u.name}</td>
                 <td>{u.email}</td>
                 <td>{u.address}</td>
                 <td>
-                  <Button variant="danger" size="sm" onClick={() => handleDelete(u.id)}>Delete</Button>
+                  <Button variant="danger" size="sm" onClick={() => handleDelete(u._id)}>Delete</Button>
                 </td>
               </tr>
             ))}
@@ -75,4 +86,3 @@ const DeleteUser = () => {
 };
 
 export default DeleteUser;
-//delete by id

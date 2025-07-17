@@ -8,7 +8,7 @@ import Footer from "./component/Footer"
 import AdminLogin from "./Routes/AdminLogin";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import LoginModal from "./component/LoginModel";
+import LoginModal from "./component/LoginModal";
 import ForgotPasswordModal from "./component/ForgotPasswordModel";
 import AdminDashboard from "./Routes/AdminDashboard";
 import UserOrderPlace from "./component/UserOrderPlace"
@@ -18,16 +18,19 @@ import Myaddress from "./component/UserProfileDashboard/Myaddress";
 import Myoffers from "./component/UserProfileDashboard/Myoffers";
 import Myorders from "./component/UserProfileDashboard/Myorders";
 import Wishlist from "./component/UserProfileDashboard/Wishlist";
-import UserDashboard from "./component/UserDashboard";
+import UserDashboard from "./component/UserDashboard";import { useState } from "react";
 
 
 
 function App() {
   const userRole = localStorage.getItem("userRole") || "guest";
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
     return(
-      <div className="app-wrapper relative overflow-x-hidden">
-      <Navbar />
+
+      <div className="app-wrapper">
+      <Navbar setShowLoginModal={setShowLoginModal} />
+
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -57,7 +60,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-      <LoginModal />
+      {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
       <ForgotPasswordModal />
     </div>
   );
