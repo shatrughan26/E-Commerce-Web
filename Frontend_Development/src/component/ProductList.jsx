@@ -8,13 +8,13 @@ const ProductList = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5500/api/products")
+    axios.get("http://localhost:5000/api/products/all")
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
       })
       .catch((err) => {
-        setError("Failed to load product list.");
+        setError("Failed to load product list.", err);
         setLoading(false);
       });
   }, []);

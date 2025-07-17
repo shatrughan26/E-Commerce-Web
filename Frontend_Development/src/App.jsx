@@ -13,6 +13,7 @@ import ForgotPasswordModal from "./component/ForgotPasswordModel";
 import AdminDashboard from "./Routes/AdminDashboard";
 import UserOrderPlace from "./component/UserOrderPlace"
 import { useState } from "react";
+import AdminBannerUploader from "./component/AdminBannerUploader";
 
 
 
@@ -33,7 +34,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/adminorderstatus" element={<UserOrderPlace />} />
-          
+          <Route path="/" element={<Home />} />
+          <Route path="/admin/banner-upload" element={<AdminBannerUploader />} />
           <Route
             path="/admin"
             element={

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Import your components
-import AdminProductForm from "../component/AdminProductForm";
+import AdminProductForm from "../component/AdminProductUpload"
 import AdminSidebar from "../component/AdminSidebar";
 import UserList from "../component/UserList";
 import CreateUser from "../component/CreateUser";

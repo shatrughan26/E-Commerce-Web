@@ -4,24 +4,25 @@ import defaultBanner from "../assets/offerbanner.png";
 const Banner = () => {
   const [banners, setBanners] = useState([]);
 
-  // useEffect(() => {
-  //   fetch('http://localhost:5000/api/banner')
-  //     .then((res) => res.json())
-  //     .then((data) => setBanners(data))
-  //     .catch((err) => console.error("Failed to load banners", err));
-  // }, []);
+useEffect(() => {
+  fetch('http://localhost:5000/api/banner')
+    .then((res) => res.json())
+    .then((data) => setBanners(data))
+    .catch((err) => console.error("Failed to load banners", err));
+}, []);
+
 
   if (banners.length === 0) {
     return ( 
       <div className="carousel-item active">
         <img src={defaultBanner} className="d-block w-100 " alt="Default Banner" />
-        <h2 className="banner-title">Welcome</h2>
+      w  <h2 className="banner-title">Welcome</h2>
       </div>
     );
   }
 
   return (
-    <div id="carouselExampleIndicators" className="carousel slide " data-bs-ride="carousel ">
+    <div id="carouselExampleIndicators" className="carousel slide " data-bs-ride="carousel" data-bs-interval="3000"  data-bs-wrap="true">
       <div className="carousel-indicators">
         {banners.map((_, index) => (
           <button
