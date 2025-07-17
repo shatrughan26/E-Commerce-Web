@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import ForgotPasswordModal from "./ForgotPasswordModel";
 
 function LoginModal() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [isLogin, setIslogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -14,6 +15,8 @@ function LoginModal() {
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  //localStorage.setItem("token", response.data.token); // added for the MyProfile component
+
 
   const handleSignUp = () => {
     if (!signupEmail || !signupPassword || !confirmPassword) {
@@ -51,6 +54,15 @@ function LoginModal() {
       };
       storedUsers.push(loginEntry);
       localStorage.setItem("users", JSON.stringify(storedUsers));
+
+      localStorage.setItem("token","dummy-token");
+      localStorage.setItem("userName",loginEmail)
+
+      window.dispatchEvent(new Event("storage"))
+
+      document.querySelector('#loginModal .btn-close')?.click();
+      navigate("/");
+
     } else {
       setMessage("Invalid credentials. Please try again.");
     }
