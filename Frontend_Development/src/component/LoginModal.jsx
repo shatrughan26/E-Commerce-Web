@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-import ForgotPasswordModal from "./ForgotPasswordModel";
 import axiosInstance from "../axiosInstance";
 import { useNavigate } from "react-router-dom";
-import Modal from 'bootstrap/js/dist/modal';
-
 
 function LoginModal({ setShowLoginModal }) {
   const navigate = useNavigate();
@@ -22,101 +18,105 @@ function LoginModal({ setShowLoginModal }) {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignUp = async () => {
-  if (!signupName || !signupMobile || !signupEmail || !signupPassword || !confirmPassword) {
-    setMessage("Please fill in all fields.");
-    return;
-  }
-  if (signupPassword !== confirmPassword) {
-    setMessage("Passwords do not match.");
-    return;
-  }
-  
-  console.log('Sign Up Payload:', { name: signupName, mobile: signupMobile, email: signupEmail, password: signupPassword });
+    if (
+      !signupName ||
+      !signupMobile ||
+      !signupEmail ||
+      !signupPassword ||
+      !confirmPassword
+    ) {
+      setMessage("Please fill in all fields.");
+      return;
+    }
 
-  try {
-    const { data } = await axiosInstance.post("/register", {
-      name: signupName,
-      mobile: signupMobile,
-      email: signupEmail,
-      password: signupPassword,
-    });
+    if (signupPassword !== confirmPassword) {
+      setMessage("Passwords do not match.");
+      return;
+    }
 
-    setMessage(data.message || "Registration successful. Please log in.");
-    setIslogin(true);
-    setSignupName("");
-    setSignupMobile("");
-    setSignupEmail("");
-    setSignupPassword("");
-    setConfirmPassword("");
-  } catch (error) {
-    // setMessage(error.response?.data?.message || "Registration failed.");
-    setMessage(error.response?.data?.error || "Registration failed.");
+    try {
+      const { data } = await axiosInstance.post("/register", {
+        name: signupName,
+        mobile: signupMobile,
+        email: signupEmail,
+        password: signupPassword,
+      });
 
-  }
-};
+      setMessage(data.message || "Registration successful. Please log in.");
+      setIslogin(true);
+      setSignupName("");
+      setSignupMobile("");
+      setSignupEmail("");
+      setSignupPassword("");
+      setConfirmPassword("");
+    } catch (error) {
+      setMessage(error.response?.data?.error || "Registration failed.");
+    }
+  };
 
+  const handleLogin = async () => {
+    if (!loginEmail || !loginPassword) {
+      setMessage("Please enter email and password.");
+      return;
+    }
 
+    try {
+      const { data } = await axiosInstance.post("/login", {
+        email: loginEmail,
+        password: loginPassword,
+      });
 
-const handleLogin = async () => {
-  if (!loginEmail || !loginPassword) {
-    setMessage("Please enter email and password.");
-    return;
-  }
+      localStorage.setItem("userData", JSON.stringify(data));
+      setMessage(data.message || `Welcome back, ${loginEmail}!`);
 
-  try {
-    const { data } = await axiosInstance.post("/login", {
-      email: loginEmail,
-      password: loginPassword,
-    });
-
-    localStorage.setItem("userData", JSON.stringify(data));
-    setMessage(data.message || `Welcome back, ${loginEmail}!`);
-
-    setTimeout(() => {
-      setShowLoginModal(false);  // Close Modal (React way)
-      navigate('/');             // Navigate to Home
-    }, 1500);
-  } catch (error) {
-    setMessage(error.response?.data?.message || "Invalid credentials.");
-  }
-};
+      setTimeout(() => {
+        setShowLoginModal(false);
+        navigate("/");
+      }, 1500);
+    } catch (error) {
+      setMessage(error.response?.data?.message || "Invalid credentials.");
+    }
+  };
 
   return (
-  <div
-    className="modal fade show d-block"
-    tabIndex="-1"
-    style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-  >
-    <div className="modal-dialog modal-dialog-centered">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title">Shri Shyam Enterprises</h5>
-          <button
-            type="button"
-            className="btn-close"
-            onClick={() => setShowLoginModal(false)}
-          ></button>
-        </div>
-
-        <div className="modal-body">
-          <div className="btn-group d-flex mb-4" role="group">
+    <div
+      className="modal d-block"
+      tabIndex="-1"
+      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+    >
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Shri Shyam Enterprises</h5>
             <button
-              className={`btn ${isLogin ? "btn-primary" : "btn-outline-primary"}`}
-              onClick={() => setIslogin(true)}
-            >
-              Login
-            </button>
-            <button
-              className={`btn ${!isLogin ? "btn-primary" : "btn-outline-primary"}`}
-              onClick={() => setIslogin(false)}
-            >
-              Sign Up
-            </button>
+              type="button"
+              className="btn-close"
+              onClick={() => setShowLoginModal(false)}
+            ></button>
           </div>
+
+          <div className="modal-body">
+            <div className="btn-group d-flex mb-4" role="group">
+              <button
+                className={`btn ${
+                  isLogin ? "btn-primary" : "btn-outline-primary"
+                }`}
+                onClick={() => setIslogin(true)}
+              >
+                Login
+              </button>
+              <button
+                className={`btn ${
+                  !isLogin ? "btn-primary" : "btn-outline-primary"
+                }`}
+                onClick={() => setIslogin(false)}
+              >
+                Sign Up
+              </button>
+            </div>
 
             {isLogin ? (
               <>
-                {/* Login Form */}
                 <input
                   type="email"
                   placeholder="Email"
@@ -136,26 +136,35 @@ const handleLogin = async () => {
                     className="btn btn-outline-secondary"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                    <i
+                      className={`fas ${
+                        showPassword ? "fa-eye-slash" : "fa-eye"
+                      }`}
+                    ></i>
                   </button>
                 </div>
                 <div className="text-end mb-3">
                   <button
                     type="button"
                     className="btn btn-link text-decoration-none p-0"
-                    data-bs-toggle="modal"
-                    data-bs-target="#forgotPasswordModal"
+                    onClick={() =>
+                      alert("Add Forgot Password modal functionality here")
+                    }
                   >
                     Forgot Password?
                   </button>
                 </div>
-                <button className="btn btn-success w-100" onClick={handleLogin}>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#loginModal"
+                >
                   Login
                 </button>
               </>
             ) : (
               <>
-                {/* Sign Up Form */}
                 <input
                   type="text"
                   placeholder="Name"
@@ -196,10 +205,17 @@ const handleLogin = async () => {
                     className="btn btn-outline-secondary"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   >
-                    <i className={`fas ${showConfirmPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                    <i
+                      className={`fas ${
+                        showConfirmPassword ? "fa-eye-slash" : "fa-eye"
+                      }`}
+                    ></i>
                   </button>
                 </div>
-                <button className="btn btn-primary w-100" onClick={handleSignUp}>
+                <button
+                  className="btn btn-primary w-100"
+                  onClick={handleSignUp}
+                >
                   Sign Up
                 </button>
               </>

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const AdminProductForm = ({ isUpdate = false, existingData = {} }) => {
+const AdminProductUpload = ({ isUpdate = false, existingData = {} }) => {
 
   const [title, setTitle] = useState(existingData.title || "");
   const [description, setDescription] = useState(
@@ -110,5 +110,5 @@ const AdminProductForm = ({ isUpdate = false, existingData = {} }) => {
 };
 
 
-export default AdminProductUpdate;
+export default AdminProductUpload;
 

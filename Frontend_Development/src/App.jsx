@@ -12,8 +12,9 @@ import LoginModal from "./component/LoginModal";
 import ForgotPasswordModal from "./component/ForgotPasswordModel";
 import AdminDashboard from "./Routes/AdminDashboard";
 import UserOrderPlace from "./component/UserOrderPlace"
+import AdminProductUpdate from './component/AdminProductUpload'; // Adjust the path as needed
 
-import { useState } from "react";
+// import { useState } from "react";
 import AdminBannerUploader from "./component/AdminBannerUploader";
 import SearchResults from "./Routes/SearchResult";
 import MyProfile from "./component/UserProfileDashboard/MyProfile";
@@ -43,8 +44,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/adminorderstatus" element={<UserOrderPlace />} />
-
-          <Route path="/" element={<Home />} />
           <Route path="/admin/banner-upload" element={<AdminBannerUploader />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/userdashboard" element={<UserDashboard/>}/>
@@ -53,6 +52,7 @@ function App() {
           <Route path="/wishlist" element={<Wishlist/>}/>
           <Route path="/offers" element={<Myoffers/>}/>
           <Route path="/address" element={<Myaddress/>}/>
+          <Route path="/productupload" element={<AdminProductUpdate/>}/>
           
 
           <Route
