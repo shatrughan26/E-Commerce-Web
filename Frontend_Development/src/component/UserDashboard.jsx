@@ -7,19 +7,17 @@ import MyOrders from "./UserProfileDashboard/Myorders";
 import Wishlist from "./UserProfileDashboard/Wishlist";
 import Myoffers from "./UserProfileDashboard/Myoffers";
 
-// Import your components
-
 const UserDashboard = () => {
   const [activeSection, setActiveSection] = useState("Profile");
 
   // Dynamically load components based on sidebar selection
   const renderContent = () => {
     switch (activeSection) {
-      case "profile":
+      case "Profile":
         return <MyProfile />;
       case "Address":
         return <Myaddress />;
-      case "Order":
+      case "Orders":
         return <MyOrders />;
       case "Offers":
         return <Myoffers />;
@@ -32,7 +30,7 @@ const UserDashboard = () => {
 
   return (
     <div className="d-flex" style={{ minHeight: "100vh" }}>
-      {/* Sidebar */}
+      {/* ✅ Fix: Use UserSidebar here */}
       <div style={{ width: "250px" }} className="bg-light border-end">
         <UserSidebar setActiveSection={setActiveSection} />
       </div>
@@ -43,4 +41,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default UserDashboard; // ✅ This should be UserDashboard, not UserSidebar
