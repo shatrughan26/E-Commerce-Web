@@ -12,6 +12,9 @@ import LoginModal from "./component/LoginModal";
 import ForgotPasswordModal from "./component/ForgotPasswordModel";
 import AdminDashboard from "./Routes/AdminDashboard";
 import UserOrderPlace from "./component/UserOrderPlace"
+
+import { useState } from "react";
+import AdminBannerUploader from "./component/AdminBannerUploader";
 import SearchResults from "./Routes/SearchResult";
 import MyProfile from "./component/UserProfileDashboard/MyProfile";
 import Myaddress from "./component/UserProfileDashboard/Myaddress";
@@ -19,6 +22,7 @@ import Myoffers from "./component/UserProfileDashboard/Myoffers";
 import Myorders from "./component/UserProfileDashboard/Myorders";
 import Wishlist from "./component/UserProfileDashboard/Wishlist";
 import UserDashboard from "./component/UserDashboard";import { useState } from "react";
+
 
 
 
@@ -39,6 +43,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/adminorderstatus" element={<UserOrderPlace />} />
+
+          <Route path="/" element={<Home />} />
+          <Route path="/admin/banner-upload" element={<AdminBannerUploader />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/userdashboard" element={<UserDashboard/>}/>
           <Route path="/profile" element={<MyProfile/>}/>
@@ -47,6 +54,7 @@ function App() {
           <Route path="/offers" element={<Myoffers/>}/>
           <Route path="/address" element={<Myaddress/>}/>
           
+
           <Route
             path="/admin"
             element={

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const AdminProductForm = ({ isUpdate = false, existingData = {} }) => {
+
   const [title, setTitle] = useState(existingData.title || "");
   const [description, setDescription] = useState(
     existingData.description || ""
@@ -23,24 +24,27 @@ const AdminProductForm = ({ isUpdate = false, existingData = {} }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("title", title);
+
+    formData.append("name", title);
     formData.append("description", description);
     formData.append("category", category);
     formData.append("price", price);
     formData.append("stock", stock);
-    formData.append("image", image);
+
+    if (image) {
+      formData.append("imageUrl", image);  // Backend expects imageUrl field
+    }
 
     try {
-      if (isUpdate) {
-        await axios.put(`/api/products/${existingData._id}`, formData);
-      } else {
-        await axios.post("/api/products", formData);
-      }
-      alert("Product saved successfully!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to save product");
-    }
+    await axios.post("http://localhost:5000/api/products/add-product", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    alert("Product added successfully!");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to add product");
+  }
+
   };
 
   return (
@@ -105,4 +109,6 @@ const AdminProductForm = ({ isUpdate = false, existingData = {} }) => {
   );
 };
 
-export default AdminProductForm;
+
+export default AdminProductUpdate;
+
