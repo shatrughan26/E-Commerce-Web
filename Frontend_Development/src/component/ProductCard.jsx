@@ -19,17 +19,6 @@ const ProductCard = () => {
     }));
   };
 
-  // const handleAddToCart = (product) => {
-  //   setCart((prev) => ({
-  //     ...prev,
-  //     [product.productId]: {
-  //       ...product,
-  //       quantity: quantities[product.productId] || 1,
-  //     },
-  //   }));
-  //   alert(`${product.name} added to cart!`);
-  // };
-
   // And modify the add to cart:
 const handleAddToCart = (product) => {
   alert(`${product.name} added to cart!`);

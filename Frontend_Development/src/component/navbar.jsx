@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-import AdminButton from "./AdminButton";
-import AdminLogin from "../Routes/AdminLogin";
+import UserProfileDropDown from "./UserProfileDropDownMenu"; // Make sure this component exists
 
-    const Navbar = ({ setShowLoginModal }) => {
+const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleNavbar = () => setIsOpen(!isOpen);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
             <Link className="navbar-brand d-flex flex-column" to="/">
@@ -15,22 +15,28 @@ import AdminLogin from "../Routes/AdminLogin";
                 <span className="fs-6">Enterprises</span>
             </Link>
 
-            <button className="navbar-toggler ms-sm-auto" type="button" onClick={toggleNavbar}>
-                {isOpen ? <FaTimes /> : <FaBars />}
-            </button>
+      <button
+        className="navbar-toggler ms-sm-auto"
+        type="button"
+        onClick={toggleNavbar}
+      >
+        {isOpen ? <FaTimes /> : <FaBars />}
+      </button>
 
-                <form className="d-flex-grow-1 ms-lg-auto py-1 w-100 md-order-1" role="search">
-                    <input
-                        className="form-control"
-                        type="search"
-                        placeholder="Search Products"
-                        aria-label="Search"
-                        style={{
-                            width: "100%",          // fill available space
-                     // increase this for desktop
-                        }}
-                    />
-                </form>
+      <form
+        className="d-flex-grow-1 ms-lg-auto py-1 w-100 md-order-1"
+        role="search"
+        onSubmit={handleSearch}
+      >
+        <input
+          className="form-control"
+          type="search"
+          placeholder="Search Products"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          aria-label="Search"
+        />
+      </form>
 
             <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}>
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0 px-4">
@@ -46,15 +52,12 @@ import AdminLogin from "../Routes/AdminLogin";
                     <li className="nav-item">
                     <button
                         className="btn nav-link px-4 bg-transparent border-0"
-                        onClick={() => {
-                            setIsOpen(false);
-                            setShowLoginModal(true);
-                        }}
-                        >
-                         Login
+                        data-bs-toggle="modal"
+                        data-bs-target="#loginModal"
+                        onClick={() => setIsOpen(false)}
+                    >
+                        Login
                     </button>
-
-
                     </li>
                 </ul>
             </div>
